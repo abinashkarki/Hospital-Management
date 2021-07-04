@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!--Bootstrap CSS-->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+
+        {% load crispy_forms_tags %} 
+
+        {% if user.is_authenticated %}
+<div class="container py-5">
+  <li class="nav-item">
+    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Welcome, {{user.username}}</a>
+  </li>
+	<h1>Appointment Form</h1>
+	<form action="" method="POST">
+		{% csrf_token %}
+		{{ form | crispy }}     
+<!-- 
+    <div class="form">
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" name="date">
+      </div>
+      <div class="form-group">
+        <label>Patient Name</label>
+        <input type="text" name="patient_name">
+      </div>
+      <div class="form-group">
+        
+        <label for="doctor">Doctor Name</label>
+        <select id="doctor" name="doctor">
+          <option value="none" selected disabled hidden>
+            select doctor
+          {%for doctor in doctor%}
+          <option value="{{doctor.name}}">{{doctor.name}}</option>
+          {%endfor%}
+
+      </div>
+      <div class="form-group">
+        <label>Time</label>
+        <input type="time" name="time">
+      </div>
+    </div> -->
+    <button class="btn btn-primary" type="submit">Submit</button>
+	</form>
+</div>
+{%else%}
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'login' %}">Login</a>
+</li>
+{% endif %}
+</ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        h1{
+            color: black;
+            background-color: white;
+            text-align: center;
+            margin-left: 35%;
+            margin-right: 35%;
+            margin-top: 45px;
+            border-radius: 8px;
+        }
+        body{
+            background: rgb(27, 27, 27);
+        }
+        .container {
+            display:inline-flex;
+            justify-content: center;
+
+        }
+        .card{
+            background: white;
+            width: 290px;
+ 
+            margin: 10px;
+            border-radius: 15px;
+        }
+        .card h2{
+            margin-left: 10%;
+        }
+        .card h3{
+            margin-left: 10%;
+        }
+        .card button{
+            margin-left: 10%;
+            margin-bottom: 5px;
+            text-decoration: none;
+        }
+        .card p{
+            background-color: black;
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            text-align: center;
+            margin: 20px 70px;
+            border-radius: 10px;
+        }
+
+        .sidebar{
+            background-color: white;
+            margin-bottom: 25px;
+            padding-left: 15px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 85%;
+            text-align: center;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+        .sidebar a{
+            color: black;
+            text-decoration: none;
+        }
+
+        .card:hover{
+            background-color: rgb(202, 193, 193);
+        }
+       
+        .sidebar:hover{
+            background-color: thistle;
+            margin-left: 25px;
+            margin-right: 83%;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1> Welcome {{user.username}}</h1>
+    <div class="sidebar">
+        <a href="appointment/">New Appointment</a>
+    </div>
+    {% for appointment in appointments %}
+    
+    <section class="container">
+        <div class="card">
+            {% load crispy_forms_tags %}
+            <h2>Patient: {{appointment.patient_name}}</h2>
+            <h3>Doctor: {{appointment.doctor}}</h3>
+            <h3>Date: {{appointment.date}}</h3> 
+            <button class="btn btn-primary"><a href="{% url 'delete_appointment' appointment.id %}">Delete</a></button>
+
+            <a href="report/">Upload Image Data</a>
+            <form method="POST">
+                {%csrf_token%}
+                {{report_form.as_p|crispy}}
+            </form>
+            <!-- {{form.as_p}} -->             
+        </div>
+    </section>
+    {% endfor %}        
+    
+</body>
+</html>
